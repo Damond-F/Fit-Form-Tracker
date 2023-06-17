@@ -20,6 +20,13 @@ def close_webcam():
     done = True
 
 cv2.namedWindow('Output')
+# Set your rate limit (in requests per minute)
+rate_limit = 20  # as per your requirement
+
+# Calculate the delay (in seconds) between each request
+delay = 60 / rate_limit
+
+last_sent_time = time.time()
 
 while cap.isOpened() and not done:
     # Read frame
@@ -53,7 +60,21 @@ while cap.isOpened() and not done:
              
              # Write pose data to CSV
              csv_writer.writerow([cv2.getTickCount(), nose_x, nose_y, left_shoulder_x, left_shoulder_y, right_shoulder_x, right_shoulder_y])
-         
+
+         # Check if it's time to send the pose data to the server
+         current_time = time.time()
+         if current_time - last_sent_time >= delay:
+             # Read the pose data from the CSV file
+             csv_file.flush()  # Make sure all data is written to the file
+             with open('pose_data.csv', 'r') as file:
+                 pose_data = file.read()
+        
+             # Send the pose data to the server
+             response = requests.post('http://localhost:5000/pose', data=pose_data)
+        
+             if response.status_code != 200:
+                 print('There was an error sending the pose data:', response.text)
+             last_sent_time = current_time    
     except:
          break
     
