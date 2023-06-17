@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="app.css">
+    <meta charset="UTF-8">
+    <title>Exercise with GPT-4</title>
+
+</head>
+<body>
+<!-- <h1> Exercise with GPT-4</h1>
+  <div class="camera">
+    <video autoplay="true" id="videoElement"></video>
+  </div> -->
+
+<button class="Plank" role="button">Plank</button>
+
+  <script>
+    let video = document.querySelector("#videoElement");
+
+    if  (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+              .then (function (stream) {
+                video.srcObject = stream;
+              })
+              .catch  (function(error) {
+                console.log("Something went wrong! :(")
+              })
+    } else {
+      console.log("getUserMedia not supported! :(")
+    }
+  </script>
+</body>
+</html>
+
