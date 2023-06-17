@@ -6,18 +6,19 @@
     <title>Exercise with GPT-4</title>
 
 </head>
+<script src="app.js"></script>
 <body>
 <h1> Exercise with GPT-4</h1>
-  <div class="camera">
+   <div class="camera">
     <video autoplay="true" id="videoElement"></video>
   </div>
-
-<button class="Plank" role="button">Plank</button>
-<button class="Push-up" role="button">Push up</button>
-<button class="Squats" role="button">Squats</button>
-<button class="Jumping-Jacks" role="button">Jumping Jacks</button>
-<button class="Sit-up" role="button">Sit up</button>
-<button class="Bench-Press" role="button">Bench Press</button>
+  <h3 id="message"> You want improvements doing: </h3>
+<button onclick="Function_Plank()" class="Plank" role="button">Plank</button>
+<button onclick="Function_Pushup()" class="Push-up" role="button">Push up</button>
+<button onclick="Function_Squats()" class="Squats" role="button">Squats</button>
+<button onclick="Function_JumpingJacks()" class="Jumping-Jacks" role="button">Jumping Jacks</button>
+<button onclick="Function_Situp()" class="Sit-up" role="button">Sit up</button>
+<button onclick="Function_BenchPress()" class="Bench-Press" role="button">Bench Press</button>
 
   <script>
     let video = document.querySelector("#videoElement");
@@ -36,5 +37,4 @@
   </script>
 </body>
 </html>
-
 
