@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>app.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #cf8e6d;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+app.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;en&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+  <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;app.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Exercise with GPT-4</span><span class="s0">&lt;/title&gt;</span>
+
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+<span class="s4">&lt;!-- &lt;h1&gt; Exercise with GPT-4&lt;/h1&gt; 
+  &lt;div class=&quot;camera&quot;&gt; 
+    &lt;video autoplay=&quot;true&quot; id=&quot;videoElement&quot;&gt;&lt;/video&gt; 
+  &lt;/div&gt; --&gt;</span>
+
+<span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;Plank&quot; </span><span class="s2">role</span><span class="s3">=&quot;button&quot;</span><span class="s0">&gt;</span><span class="s1">Plank</span><span class="s0">&lt;/button&gt;</span>
+
+  <span class="s0">&lt;script&gt;</span>
+    <span class="s5">let </span><span class="s1">video = document.querySelector(</span><span class="s3">&quot;#videoElement&quot;</span><span class="s1">);</span>
+
+    <span class="s5">if  </span><span class="s1">(navigator.mediaDevices.getUserMedia) {</span>
+      <span class="s1">navigator.mediaDevices.getUserMedia({ video: </span><span class="s5">true </span><span class="s1">})</span>
+              <span class="s1">.then (</span><span class="s5">function </span><span class="s1">(stream) {</span>
+                <span class="s1">video.srcObject = stream;</span>
+              <span class="s1">})</span>
+              <span class="s1">.catch  (</span><span class="s5">function</span><span class="s1">(error) {</span>
+                <span class="s1">console.log(</span><span class="s3">&quot;Something went wrong! :(&quot;</span><span class="s1">)</span>
+              <span class="s1">})</span>
+    <span class="s1">} </span><span class="s5">else </span><span class="s1">{</span>
+      <span class="s1">console.log(</span><span class="s3">&quot;getUserMedia not supported! :(&quot;</span><span class="s1">)</span>
+    <span class="s1">}</span>
+  <span class="s0">&lt;/script&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+
+</pre>
+</body>
+</html>
