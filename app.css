@@ -1,7 +1,14 @@
 h1 {
     font-family: sans-serif;
-    color: black;
-    left: 1200px;
+    color: white;
+    padding-left:970px;
+}
+
+h3 {
+    font-family: sans-serif;
+    color: white;
+    padding-top: 545px;
+    padding-left: 180px;
 }
 
 body {
@@ -48,7 +55,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 30px;
     will-change: transform;
 }
@@ -92,7 +99,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 160px;
     will-change: transform;
 }
@@ -136,7 +143,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 290px;
     will-change: transform;
 }
@@ -180,7 +187,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 420px;
     will-change: transform;
 }
@@ -224,7 +231,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 550px;
     will-change: transform;
 }
@@ -268,7 +275,7 @@ body {
     touch-action: manipulation;
     width: 100px;
     height: 10px;
-    top: 650px;
+    top: 670px;
     left: 680px;
     will-change: transform;
 }
