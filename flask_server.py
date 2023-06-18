@@ -53,7 +53,6 @@ def normalize(pose_data):
 
 def feedback(user_form, standard_form):
     # data = lsit of 2 dictionaries
-
     prompt = 'this is the data for bad forms: ' + '\n'
 
     for key, value in bad.items():
@@ -79,7 +78,7 @@ def feedback(user_form, standard_form):
 
 #OFFLINE VERSION OF receive_pose_data
 def receive_pose_data():
-    
+
 #THE FOLLOWING IS THE ORIGINAL RECEIVING POSE DATA USING FLASK
 # app = Flask(__name__)
 # @app.route('/pose', methods=['POST'])
