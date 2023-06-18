@@ -94,7 +94,7 @@ def get_pose_data():
     with open('reference_data.csv', 'r') as file:
         # Create a DictReader
         entire_form = list(csv.DictReader(file))
-        user_form = entire_form[len(entire_form)-1]
+        user_form = entire_form[len(entire_form)/2]
 
     print(feedback(user_form, standard_form))
 
