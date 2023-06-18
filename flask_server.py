@@ -51,7 +51,7 @@ def normalize(pose_data):
 
     return normalized_pose_data
 
-def feedback(bad, good):
+def feedback(user_form, standard_form):
     # data = lsit of 2 dictionaries
 
     prompt = 'this is the data for bad forms: ' + '\n'
@@ -87,9 +87,9 @@ app = Flask(__name__)
 def receive_pose_data():
     # Get the JSON data from the request
     pose_data = request.get_json()
-
-
-
+    user_form = pose_data["user"]
+    standard_form = pose_data["standard"]
+    feedback(user_form, standard_form)
     return 'OK', 200
 
 if __name__ == '__main__':
