@@ -1,7 +1,7 @@
 from flask import Flask, request
 import csv
 import io
-
+import math
 from dotenv import load_dotenv
 import os
 
@@ -13,7 +13,7 @@ key = os.getenv("OPENAI")
 
 
 
-openai.api_key = key
+openai.api_key = "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"
 model_id = 'gpt-4'
 
 def normalize(pose_data):
@@ -53,44 +53,64 @@ def normalize(pose_data):
 
 def feedback(user_form, standard_form):
     # data = lsit of 2 dictionaries
-
     prompt = 'this is the data for bad forms: ' + '\n'
 
-    for key, value in bad.items():
-        prompt = prompt + key + ' is at ' + str(value) + '. '
+    for key, value in user_form.items():
+        if value is not None and key is not None:
+            prompt = prompt + key + ' is at ' + str(value) + '. '
 
     prompt += '\n' + 'now this is the data for good forms: ' + '\n' # good form
 
-    for key, value in good.items():
-        prompt = prompt + key + ' is at ' + str(value) + '. '
+    for key, value in standard_form.items():
+        if value is not None and key is not None:
+            prompt = prompt + key + ' is at ' + str(value) + '. '
 
     input = [
-        {'role': 'system', 'content': 'You are a fitness assistant. Respond with how the person can fix their exercise, given the input data as coordinates and the coordinates of ideal form'},
+        {'role': 'system', 'content': 'You are a fitness assistant. Respond with how the person can fix their exercise, given the input data as coordinates and the coordinates of ideal form. Talk in words such that a human would understand. Dont give coordinates.'},
        #  {'role': 'user', 'content': prompt}, # need example data and example response
       #   {'role': 'assistant', 'content': ''},
         {'role': 'user', 'content': prompt}
     ]
-
-
     response = openai.ChatCompletion.create(
         model = model_id,
         messages = input
     )
-
     res = response['choices'][0]['message']['content']
-
     return res
 
-app = Flask(__name__)
-@app.route('/pose', methods=['POST'])
+#OFFLINE VERSION OF receive_pose_data
+def get_pose_data():
+    # Open the CSV file
+    standard_form = ""
+    user_form = ""
+    with open('pose_data.csv', 'r') as file:
+        # Create a DictReader
+        standard_form = list(csv.DictReader(file))[0]
 
-def receive_pose_data():
-    # Get the JSON data from the request
-    pose_data = request.get_json()
-    user_form = pose_data["user"]
-    standard_form = pose_data["standard"]
-    feedback(user_form, standard_form)
-    return 'OK', 200
+
+
+
+
+    with open('reference_data.csv', 'r') as file:
+        # Create a DictReader
+        entire_form = list(csv.DictReader(file))
+        user_form = entire_form[len(entire_form)/2]
+
+    print(feedback(user_form, standard_form))
+
+
+
+#THE FOLLOWING IS THE ORIGINAL RECEIVING POSE DATA USING FLASK
+# app = Flask(__name__)
+# @app.route('/pose', methods=['POST'])
+
+# def receive_pose_data():
+#     # Get the JSON data from the request
+#     pose_data = request.get_json()
+#     user_form = pose_data["user"]
+#     standard_form = pose_data["standard"]
+#     res = feedback(user_form, standard_form)
+#     return 'OK', 200
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    get_pose_data()
