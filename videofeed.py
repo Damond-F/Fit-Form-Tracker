@@ -34,7 +34,7 @@ image_file = image_files[reference_pose]
 # Read image
 print(f"Processing reference image: {image_file}")  # Debug print
 reference_image = cv2.imread(image_file)
-if reference-image is None:
+if reference_image is None:
     print(f"Could not read image: {image_file}")
 
 

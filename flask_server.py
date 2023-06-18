@@ -1,7 +1,7 @@
 from flask import Flask, request
 import csv
 import io
-
+import math
 from dotenv import load_dotenv
 import os
 
@@ -13,7 +13,7 @@ key = os.getenv("OPENAI")
 
 
 
-openai.api_key = key
+openai.api_key = "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"
 model_id = 'gpt-4'
 
 def normalize(pose_data):
@@ -56,15 +56,17 @@ def feedback(user_form, standard_form):
     prompt = 'this is the data for bad forms: ' + '\n'
 
     for key, value in user_form.items():
-        prompt = prompt + key + ' is at ' + str(value) + '. '
+        if value is not None and key is not None:
+            prompt = prompt + key + ' is at ' + str(value) + '. '
 
     prompt += '\n' + 'now this is the data for good forms: ' + '\n' # good form
 
     for key, value in standard_form.items():
-        prompt = prompt + key + ' is at ' + str(value) + '. '
+        if value is not None and key is not None:
+            prompt = prompt + key + ' is at ' + str(value) + '. '
 
     input = [
-        {'role': 'system', 'content': 'You are a fitness assistant. Respond with how the person can fix their exercise, given the input data as coordinates and the coordinates of ideal form'},
+        {'role': 'system', 'content': 'You are a fitness assistant. Respond with how the person can fix their exercise, given the input data as coordinates and the coordinates of ideal form. Talk in words such that a human would understand. Dont give coordinates.'},
        #  {'role': 'user', 'content': prompt}, # need example data and example response
       #   {'role': 'assistant', 'content': ''},
         {'role': 'user', 'content': prompt}
@@ -83,12 +85,16 @@ def get_pose_data():
     user_form = ""
     with open('pose_data.csv', 'r') as file:
         # Create a DictReader
-        standard_form = csv.DictReader(file)
+        standard_form = list(csv.DictReader(file))[0]
+
+
+
+
 
     with open('reference_data.csv', 'r') as file:
         # Create a DictReader
-        entire_form = csv.DictReader(file)
-        user_form = entire_form[len(entire_form)]
+        entire_form = list(csv.DictReader(file))
+        user_form = entire_form[len(entire_form)-1]
 
     print(feedback(user_form, standard_form))
 
@@ -106,5 +112,5 @@ def get_pose_data():
 #     res = feedback(user_form, standard_form)
 #     return 'OK', 200
 
-# if __name__ == '__main__':
-#     app.run(port=5000)
+if __name__ == '__main__':
+    get_pose_data()
