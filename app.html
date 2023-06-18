@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+<form action = "http://localhost:5000/login" method = "post"></form>
 <head>
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
     <meta charset="UTF-8">
     <title>Exercise with GPT-4</title>
 
 </head>
-<script src="app.js"></script>
+<script src="{{url_for('static', filename='app.js')}}"></script>
 <body>
 <h1> Exercise with GPT-4</h1>
    <div class="camera">
@@ -37,4 +38,3 @@
   </script>
 </body>
 </html>
-
