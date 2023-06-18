@@ -90,20 +90,68 @@ while cap.isOpened() and not done:
              # Write pose data to CSV
              csv_writer.writerow([cv2.getTickCount(), nose_x, nose_y, left_shoulder_x, left_shoulder_y, right_shoulder_x, right_shoulder_y, left_elbow_x, left_elbow_y, right_elbow_x, right_elbow_y, left_wrist_x, left_wrist_y, right_wrist_x, right_wrist_y, left_hip_x, left_hip_y, right_hip_x, right_hip_y, left_knee_x, left_knee_y, right_knee_x, right_knee_y, left_ankle_x, left_ankle_y, right_ankle_x, right_ankle_y, left_heel_x, left_heel_y, right_heel_x, right_heel_y, left_foot_index_x, left_foot_index_y, right_foot_index_x, right_foot_index_y])
 
-         # Check if it's time to send the pose data to the server
-         current_time = time.time()
-         if current_time - last_sent_time >= delay:
-             # Read the pose data from the CSV file
-             csv_file.flush()  # Make sure all data is written to the file
-             with open('pose_data.csv', 'r') as file:
-                 pose_data = file.read()
-        
-             # Send the pose data to the server
-             response = requests.post('http://localhost:5000/pose', data=pose_data)
-        
-             if response.status_code != 200:
-                 print('There was an error sending the pose data:', response.text)
-             last_sent_time = current_time    
+    
+             pose_data = {
+                 'Timestamp': cv2.getTickCount(),
+                 'Nose_X': nose_x,
+                 'Nose_Y': nose_y,
+                 'Left_shoulder_X' : left_shoulder_x, 
+                 'Left_shoulder_Y' : left_shoulder_y,
+                 'Right_shoulder_X' : right_shoulder_x, 
+                 'Right_shoulder_Y' : right_shoulder_y,
+                 'Left_elbow_X' : left_elbow_x, 
+                 'Left_elbow_Y' : left_elbow_y,
+                 'Right_elbow_X' : right_elbow_x,
+                 'Right_elbow_Y' : right_elbow_y,
+                 'Left_wrist_X': left_wrist_x,
+                 'Left_wrist_Y': left_wrist_y,
+                 'Right_wrist_X': right_wrist_x,
+                 'Right_wrist_Y': right_wrist_y,
+                 'Left_hip_X': left_hip_x,
+                 'Left_hip_Y': left_hip_y,
+                 'Right_hip_X': right_hip_x,
+                 'Right_hip_Y': right_hip_y,
+                 'Left_knee_X': left_knee_x,
+                 'Left_knee_Y': left_knee_y,
+                 'Right_knee_X': right_knee_x,
+                 'Right_knee_Y': right_knee_y,
+                 'Left_ankle_X': left_ankle_x,
+                 'Left_ankle_Y': left_ankle_y,
+                 'Right_ankle_X': right_ankle_x,
+                 'Right_ankle_Y': right_ankle_y,
+                 'Left_heel_X': left_heel_x,
+                 'Left_heel_Y': left_heel_y,
+                 'Right_heel_X': right_heel_x,
+                 'Right_heel_Y': right_heel_y,
+                 'Left_foot_index_X': left_foot_index_x,
+                 'Left_foot_index_Y': left_foot_index_y,
+                 'Right_foot_index_X': right_foot_index_x,
+                 'Right_foot_index_Y': right_foot_index_y
+            }
+    
+            # Check if it's time to send the pose data to the server
+            current_time = time.time()
+            if current_time - last_sent_time >= delay:
+                # Convert the pose data to JSON
+                pose_data_json = json.dumps(pose_data)
+    
+                # Send the pose data to the server
+                response = requests.post('http://localhost:5000/pose', data=pose_data_json)
+    
+                if response.status_code != 200:
+                    print('There was an error sending the pose data:', response.text)
+                last_sent_time = current_time
+                 # Read the pose data from the CSV file
+                 csv_file.flush()  # Make sure all data is written to the file
+                 with open('pose_data.csv', 'r') as file:
+                     pose_data = file.read()
+            
+                 # Send the pose data to the server
+                 response = requests.post('http://localhost:5000/pose', data=pose_data)
+            
+                 if response.status_code != 200:
+                     print('There was an error sending the pose data:', response.text)
+                 last_sent_time = current_time    
     except:
          break
     
