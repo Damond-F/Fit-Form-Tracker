@@ -59,7 +59,7 @@ def feedback(user_form, standard_form):
     for key, value in bad.items():
         prompt = prompt + key + ' is at ' + str(value) + '. '
 
-    prompt += 'now this is the data for good forms: ' + '\n' # good form
+    prompt += '\n' + 'now this is the data for good forms: ' + '\n' # good form
 
     for key, value in good.items():
         prompt = prompt + key + ' is at ' + str(value) + '. '
