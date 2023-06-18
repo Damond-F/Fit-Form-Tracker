@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<form action = "http://localhost:5000/login" method = "post"></form>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='app.css') }}">
+    <meta charset="UTF-8">
+    <title>Exercise with GPT-4</title>
+
+</head>
+<script src="{{url_for('static', filename='app.js')}}"></script>
+<body>
+<img src="{{ url_for('video_feed') }}">
+
+<h1> Exercise with GPT-4</h1>
+<!-- 
+   <div class="camera">
+    <video autoplay="true" id="videoElement"></video>
+  </div> -->
+
+  <h3 id="message"> You want improvements doing: </h3>
+<button onclick="Function_Plank()" class="Plank" role="button">Plank</button>
+<button onclick="Function_Pushup()" class="Push-up" role="button">Push up</button>
+<button onclick="Function_Squats()" class="Squats" role="button">Squats</button>
+<button onclick="Function_JumpingJacks()" class="Jumping-Jacks" role="button">Jumping Jacks</button>
+<button onclick="Function_Situp()" class="Sit-up" role="button">Sit up</button>
+<button onclick="Function_BenchPress()" class="Bench-Press" role="button">Bench Press</button>
+
+  <script>
+    let video = document.querySelector("#videoElement");
+
+    if  (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+              .then (function (stream) {
+                video.srcObject = stream;
+              })
+              .catch  (function(error) {
+                console.log("Something went wrong! :(")
+              })
+    } else {
+      console.log("getUserMedia not supported! :(")
+    }
+  </script>
+</body>
+</html>
