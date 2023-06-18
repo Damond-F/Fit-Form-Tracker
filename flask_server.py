@@ -55,12 +55,12 @@ def feedback(user_form, standard_form):
     # data = lsit of 2 dictionaries
     prompt = 'this is the data for bad forms: ' + '\n'
 
-    for key, value in bad.items():
+    for key, value in user_form.items():
         prompt = prompt + key + ' is at ' + str(value) + '. '
 
     prompt += '\n' + 'now this is the data for good forms: ' + '\n' # good form
 
-    for key, value in good.items():
+    for key, value in standard_form.items():
         prompt = prompt + key + ' is at ' + str(value) + '. '
 
     input = [
@@ -77,7 +77,22 @@ def feedback(user_form, standard_form):
     return res
 
 #OFFLINE VERSION OF receive_pose_data
-def receive_pose_data():
+def get_pose_data():
+    # Open the CSV file
+    standard_form = ""
+    user_form = ""
+    with open('pose_data.csv', 'r') as file:
+        # Create a DictReader
+        standard_form = csv.DictReader(file)[0]
+
+    with open('reference_data.csv', 'r') as file:
+        # Create a DictReader
+        entire_form = csv.DictReader(file)[csv.]
+        user_form = entire_form[len(entire_form)]
+
+    print(feedback(user_form, standard_form))
+
+
 
 #THE FOLLOWING IS THE ORIGINAL RECEIVING POSE DATA USING FLASK
 # app = Flask(__name__)
