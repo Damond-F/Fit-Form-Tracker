@@ -33,16 +33,16 @@ csv_writer_reference.writerow(['Nose_X', 'Nose_Y', 'Left_Shoulder_X', 'Left_Shou
 image_file = image_files[reference_pose]
 # Read image
 print(f"Processing reference image: {image_file}")  # Debug print
-frame = cv2.imread(image_file)
-if frame is None:
+reference_image = cv2.imread(image_file)
+if reference-image is None:
     print(f"Could not read image: {image_file}")
-    continue
+
 
 # Convert to RGB
-frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+reference_image_rgb = cv2.cvtColor(reference_image, cv2.COLOR_BGR2RGB)
 
 # Process the frame for pose detection
-reference_results = pose.process(frame_rgb)
+reference_results = pose.process(reference_image_rgb)
 
 # Get pose landmark data
 reference_landmarks = reference_results.pose_landmarks
