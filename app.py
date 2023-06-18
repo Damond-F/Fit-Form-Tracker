@@ -21,7 +21,6 @@ def process_frames():
     pose = mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
     cap = cv2.VideoCapture(0)
-    done = False
 
     # Create a CSV file to store pose data
     csv_file = open('pose_data.csv', 'w', newline='')
@@ -30,8 +29,9 @@ def process_frames():
 
 
     def close_webcam():
-        global done
-        done = True
+        # global done
+        # done = True
+        cap.release()
 
     # cv2.namedWindow('Output')
     # Set your rate limit (in requests per minute)
@@ -42,9 +42,8 @@ def process_frames():
 
     last_sent_time = time.time()
 
-    while cap.isOpened() and not done:
+    while cap.isOpened():
         # Read frame
-        print("Frame read")
         ret, frame = cap.read()
         try:
             print(ret)
@@ -52,17 +51,12 @@ def process_frames():
             # frame = cv2.resize(frame, (350, 600))
             # Convert to RGB
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            print("converted to rgb")
             # Process the frame for pose detection
             pose_results = pose.process(frame_rgb)
-            print("pose processed")
             # Draw skeleton on the frame
             mp_drawing.draw_landmarks(frame, pose_results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
-            print("landmarks drawn")
             # Display the frame
-            print("Before imshow")
-            cv2.imshow('frame', frame) #
-            print("after imshow")
+            cv2.imshow('frame', frame)
             # Get pose landmark data
             pose_landmarks = pose_results.pose_landmarks
             if pose_landmarks:
@@ -120,17 +114,19 @@ def process_frames():
                 if response.status_code != 200:
                     print('There was an error sending the pose data:', response.text)
                 last_sent_time = current_time    
-        except:
+        except(e):
+            print(e)
             break
     
         # Check if 'Done' button is pressed (keycode 27 is the ESC key)
         key = cv2.waitKey(1)
         if key == 27:  # ESC key
             close_webcam()
+            break
         elif key == ord('q'):
             break
 
-    cap.release()
+    # cap.release()
     csv_file.close()
     cv2.destroyAllWindows()
 
